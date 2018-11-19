@@ -1,0 +1,51 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='index.html') Home
+            span.divider /
+          li.active Login
+        h3  Login
+        hr.soft
+        .row
+          .span4
+            .well
+              h5 CREATE YOUR ACCOUNT
+              br
+              | &#x9;&#x9;&#x9;Enter your e-mail address to create an account.
+              br
+              br
+              br
+              form(action='register.html')
+                .control-group
+                  label.control-label(for='inputEmail0') E-mail address
+                  .controls
+                    input#inputEmail0.span3(type='text', placeholder='Email')
+                .controls
+                  button.btn.block(type='submit') Create Your Account
+          .span1  &nbsp;
+          .span4
+            .well
+              h5 ALREADY REGISTERED ?
+              if errors
+                each error in errors
+                  .alert.alert-danger= error
+              form(action="/signin", method="POST" )
+                .control-group
+                  label.control-label(for="email") Email
+                  .controls
+                    input#email.span3(type="email" name="email" value= values ? values.email : '')
+                .control-group
+                  label.control-label(for="password") Password
+                  .controls
+                    input#password.span3(type="password" name="password" value= values ? values.password : '')
+                .control-group
+                  .controls
+                    button.btn(type='submit') Sign in
+                    a(href='forgetpass.html') Forget password?
+  // Footer ==========================================================
+  include ../layout/footer.pug

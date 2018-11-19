@@ -1,0 +1,86 @@
+extends ../layout/header.pug
+block content
+  #carouselBlk
+    #myCarousel.carousel.slide
+      .carousel-inner
+        .item.active
+          .container
+            a(href='/products')
+              img(style='width:100%', src=carousels[0].img, alt='special offers')
+            .carousel-caption
+              h4 Second Thumbnail label
+              p
+                | Thumbnail label ahihi
+        //each carousel in carousels
+        -for(var i=1; i < carousels.length; i++)
+          .item
+            .container
+              a(href='/products')
+                img(style='width:100%', src=carousels[i].img, alt='')
+              .carousel-caption
+                h4 Second Thumbnail label
+                p
+                  | Thumbnail label ahihi
+      a.left.carousel-control(href='#myCarousel', data-slide='prev') &lsaquo;
+      a.right.carousel-control(href='#myCarousel', data-slide='next') &rsaquo;
+  #mainBody
+    .container
+      .row
+        //sidebar==============================================================
+        include ../layout/sidebar.pug
+        .span9
+          .well.well-small
+            h4
+              | Featured Products 
+              small.pull-right 20+ featured products
+            .row-fluid
+              #featured.carousel.slide
+                .carousel-inner
+                  .item.active
+                    ul.thumbnails
+                      -for(var j=0; j<4 ;j++)
+                        li.span3
+                          .thumbnail
+                            i.tag
+                            a(href='/product-details/' + featuredproducts[j].id)
+                              img(src=featuredproducts[j].img, alt='')
+                            .caption
+                              h5=featuredproducts[j].name
+                              h4
+                                a.btn(href='/product-details/' + featuredproducts[i].id) VIEW
+                                span.pull-right $#{featuredproducts[j].price}
+                  //-for(var z=1; z< featuredproducts.length:4,z++)
+                  .item
+                    ul.thumbnails
+                      -for(j; j< 8; j++)
+                        li.span3
+                          .thumbnail
+                            i.tag
+                            a(href='/product-details/' + featuredproducts[j].id)
+                              img(src=featuredproducts[j].img, alt='')
+                            .caption
+                              h5=featuredproducts[j].name
+                              h4
+                                a.btn(href='/product-details/' + featuredproducts[j].id) VIEW
+                                span.pull-right $#{featuredproducts[j].price}
+                a.left.carousel-control(href='#featured', data-slide='prev') &lsaquo;
+                a.right.carousel-control(href='#featured', data-slide='next') &rsaquo;
+          h4 Latest Products 
+          ul.thumbnails
+            each product in products
+              li.span3
+                .thumbnail
+                  a(href='/product-details/' + product.id)
+                    img(src=product.img, alt='')
+                  .caption
+                    h5=product.name
+                    p=product.description
+                    h4(style='text-align:center')
+                      a.btn(href='/product-details/' + product.id)
+                        i.icon-zoom-in
+                      a.btn(href='/cart/add/'+product.id)
+                        | Add to 
+                        i.icon-shopping-cart
+                      a.btn.btn-primary(href='#') $#{product.price}
+  // Footer ==================================================================
+  include ../layout/footer.pug

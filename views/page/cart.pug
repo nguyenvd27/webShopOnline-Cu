@@ -1,0 +1,113 @@
+extends ../layout/header.pug
+block content
+  #mainBody
+    .container
+      .row
+        // Sidebar ==================================================
+        include ../layout/sidebar.pug
+        .span9
+          ul.breadcrumb
+            li
+              a(href='index.html') Home
+              span.divider /
+            li.active  SHOPPING CART
+          h3
+            | SHOPPING CART [ 
+            small 3 Item(s) 
+            | ]
+            a.btn.btn-large.pull-right(href='/products')
+              i.icon-arrow-left
+              |  Continue Shopping
+          hr.soft
+          table.table.table-bordered
+            tr
+              th  Hi!!!!!!!!! 
+          table.table.table-bordered
+            thead
+              tr
+                th Product
+                th Description
+                th Quantity/Update
+                th Price
+                th Total
+            tbody#select-quantity
+              each product in products
+                tr
+                  td
+                    img(width='60', src=product.img, alt='')
+                  td
+                    p.text-center #{product.name} 
+                    |  #{product.description}
+                  td
+                    .input-append
+                      input.span1(style='max-width:34px', value=product.quantity, id= product.productid, size='16', type='text')
+                      a(href='/cart/checkout/update') 
+                        button.btn.btn-success(type='button')
+                          i.icon-edit
+                      a(href='/cart/checkout/delete')
+                        button.btn.btn-danger.delete-button(type='button', id= product.productid)
+                          i.delete-button.close-button.icon-remove.icon-white(id= product.productid)
+                          
+                  td $ #{product.price}
+                  td $ #{product.price * product.quantity}
+              tr
+                td(colspan='4', style='text-align:right')
+                  strong TOTAL PRICE =
+                -
+                  var totalPrice = 0
+                  for(var i=0;i< products.length;i++){
+                  totalPrice = totalPrice + products[i].price*products[i].quantity
+                  }
+                td.label.label-important(style='display:block')
+                  strong $ #{totalPrice} 
+          a.btn.btn-large(href='/products')
+            i.icon-arrow-left
+            |  Continue Shopping
+          a.btn.btn-large.pull-right(href= email ? '/register' : '/signin')
+            | Next 
+            i.icon-arrow-right
+  // Footer ==============================================================
+  include ../layout/footer.pug
+
+  block js
+    script.
+      var quantity = document.getElementById('select-quantity'); 
+      quantity.addEventListener('change', onUpdateCart); 
+      quantity.addEventListener('click', onDelete);
+      
+      function onUpdateCart(event) {
+        var updateQuantity = event.target.value;
+        var id = event.target.id;//Lay id duoc update
+        
+        fetch('http://localhost:3000/cart/checkout/update', {
+          method: 'post',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            updateQuantity: updateQuantity,
+            id: id
+          })
+        })
+        .then(response => console.log('Success'))
+        .catch(error => console.error('Error', error));
+      }
+
+      function onDelete(event) {
+        if(event.target.classList.contains('delete-button')){
+          var idDelete = event.target.id;// Lay id bi xoa
+          console.log('idDelete', idDelete);
+
+          fetch('http://localhost:3000/cart/checkout/delete', {
+          method: 'post',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idDelete: idDelete
+          })
+        })
+        .then(response => console.log('Success'))
+        .catch(error => console.error('Error', error));
+        }
+      }

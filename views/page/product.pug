@@ -1,0 +1,100 @@
+extends ../layout/header.pug
+block content
+  #mainBody
+    .container
+      .row
+        // Sidebar ==================================================
+        include ../layout/sidebar.pug
+        // Sidebar end===============================================
+        .span9
+          ul.breadcrumb
+            li
+              a(href='index.html') Home
+              span.divider /
+            li.active Products Name
+          h3
+            | Products Name 
+            small.pull-right  40 products are available 
+          hr.soft
+          p
+            | Nowadays the VDN industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+          hr.soft
+          form.form-horizontal.span6
+            .control-group
+              label.control-label.alignL
+                strong SORT BY 
+              select(name='select-product', onchange='location=this.value;')
+                option(value=0) SORT BY
+                option(value='/products/sortAZ') Priduct name A - Z
+                option(value='/products/sortZA') Priduct name Z - A
+                option(value='/products/priceLow') Price Lowest first
+                option(value='/products/priceHigh') Price Highest first
+          #myTab.pull-right
+            a(href='#listView', data-toggle='tab')
+              span.btn.btn-large
+                i.icon-list
+            a(href='#blockView', data-toggle='tab')
+              span.btn.btn-large.btn-primary
+                i.icon-th-large
+          br.clr
+          .tab-content
+            #listView.tab-pane
+              each product in products
+                .row
+                  .span2
+                    img(src=product.img, alt='')
+                  .span4
+                    h3=product.name
+                    hr.soft
+                    h5 Infor 
+                    p=product.description
+                    a.btn.btn-small.pull-right(href='/product-details/' + product.id) View Details
+                    br.clr
+                  .span3.alignR
+                    form.form-horizontal.qtyFrm
+                      h3  $ #{product.price}
+                      a.btn.btn-large.btn-primary(href='/cart/add/'+product.id)
+                        | Add to 
+                        i.icon-shopping-cart
+                      a.btn.btn-large(href='/product-details/' + product.id)
+                        i.icon-zoom-in
+                hr.soft
+            #blockView.tab-pane.active
+              ul.thumbnails
+                each product in products
+                  li.span3
+                    .thumbnail
+                      a(href='/product-details/' + product.id)
+                        img(src=product.img, alt='')
+                      .caption
+                        h5=product.name
+                        p=product.description
+                        h4(style='text-align:center')
+                          a.btn(href='/product-details/' + product.id)
+                            i.icon-zoom-in
+                          a.btn(href='/cart/add/'+product.id)
+                            | Add to 
+                            i.icon-shopping-cart
+                          a.btn.btn-primary(href='#') $ #{product.price}
+              hr.soft
+          a.btn.btn-large.pull-right(href='compair.html') Compair Product
+          .pagination
+            ul
+              li
+                a(href='#') &lsaquo;
+              li
+                a(href='#') 1
+              li
+                a(href='#') 2
+              li
+                a(href='#') 3
+              li
+                a(href='#') 4
+              li
+                a(href='#') ...
+              li
+                a(href='#') &rsaquo;
+          br.clr
+  // MainBody End =============================
+  // Footer ==================================================================
+  include ../layout/footer.pug
