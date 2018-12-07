@@ -41,3 +41,25 @@ module.exports.postSignin = (req, res) => {
             }
         })
 };
+
+module.exports.createUser = (req, res) => {
+    const { name, email, password, entries } = req.body;
+    console.log(name, email, password, entries);
+    const hash = bcrypt.hashSync(password);
+    console.log(name, email, hash);
+
+    db('login').insert({
+        email: email,
+        hash: hash
+    }).then(data => {
+        db('users').insert({
+            name: name,
+            email: email,
+            entries: entries,
+            joined: new Date()
+        })
+        .then(data2 => {
+            res.redirect('/signin');
+        })
+    })
+}

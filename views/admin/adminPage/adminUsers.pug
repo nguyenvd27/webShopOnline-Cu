@@ -1,0 +1,58 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='admin/products') Admin
+            span.divider /
+          li.active Users
+        h1
+          span.mt-100.mr-10 Users
+          span &nbsp;
+          a.btn.btn-primary(href="/admin/products/create") New User
+        hr.soft
+        
+        form(action="/admin/products/search", method="GET" class="form-inline")
+          input(type="text" name = "q" class="form-control")
+          span &nbsp;
+          button( class="btn btn-primary ml-4" ) Search
+        form#idDelete(action="/admin/users/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao email can xoa...')
+          span &nbsp;
+          button.btn.btn-danger( class="btn btn-primary ml-4" ) Delete
+
+        table.table.table-bordered
+          thead 
+            tr.thead-dark
+              th ID
+              th Email
+              th Name
+          tbody#idDelete
+            each user in users
+              tr
+                td= user.id
+                td= user.email
+                td= user.name
+  // Footer ==========================================================
+  include ../layout/footer.pug
+  //- block js
+  //-   script.
+  //-     var idDelete = document.getElementById('idDelete'); 
+  //-     idDelete.addEventListener('click', onDelete);
+  //-     function onDelete(event) {
+  //-         var idDelete = event.target.id;// Lay id bi xoa
+  //-       fetch('http://localhost:3000/admin/users/delete', {
+  //-         method: 'post',
+  //-         headers:{
+  //-           'Content-Type': 'application/json'
+  //-         },
+  //-         body: JSON.stringify({
+  //-           idDelete: idDelete
+  //-         })
+  //-       })
+  //-       .then(response => console.log('Success'))
+  //-       .catch(error => console.error('Error', error));
+  //-     }

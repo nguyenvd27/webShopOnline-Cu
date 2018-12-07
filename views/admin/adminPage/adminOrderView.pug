@@ -1,0 +1,25 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='admin/products') Admin
+            span.divider /
+          li.active Orders
+        h1
+          span.mt-100.mr-10 Orders
+        hr.soft
+        
+        form(action="/admin/products/search", method="GET" class="form-inline")
+          input(type="text" name = "q" class="form-control")
+          span &nbsp;
+          button( class="btn btn-primary ml-4" ) Search
+
+        h3 ID #{order.id}
+        h3 Name #{order.name}
+        h3 Total Price #{order.totalprice}
+  // Footer ==========================================================
+  include ../layout/footer.pug

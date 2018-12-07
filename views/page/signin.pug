@@ -16,15 +16,23 @@ block content
             .well
               h5 CREATE YOUR ACCOUNT
               br
-              | &#x9;&#x9;&#x9;Enter your e-mail address to create an account.
-              br
-              br
-              br
-              form(action='register.html')
+              form(action='/signin/create', method="POST")
+                .control-group
+                  label.control-label(for='name') Name
+                  .controls
+                    input#name.span3(type='text', name='name', placeholder='Name')
                 .control-group
                   label.control-label(for='inputEmail0') E-mail address
                   .controls
-                    input#inputEmail0.span3(type='text', placeholder='Email')
+                    input#inputEmail0.span3(type='text', name='email', placeholder='Email')
+                .control-group
+                  label.control-label(for="password") Password
+                  .controls
+                    input#password.span3(type="password", name='password', placeholder='Password')
+                .control-group
+                  label.control-label(for="entries") Entries
+                  .controls
+                    input#entries.span3(type="number", name='entries', placeholder='Entries')
                 .controls
                   button.btn.block(type='submit') Create Your Account
           .span1  &nbsp;

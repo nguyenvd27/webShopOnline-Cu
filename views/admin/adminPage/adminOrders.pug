@@ -1,0 +1,42 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='admin/products') Admin
+            span.divider /
+          li.active Orders
+        h1
+          span.mt-100.mr-10 Orders
+        hr.soft
+        
+        form(action="/admin/products/search", method="GET" class="form-inline")
+          input(type="text" name = "q" class="form-control")
+          span &nbsp;
+          button( class="btn btn-primary ml-4" ) Search
+          
+        form#idDelete(action="/admin/products/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id product can xoa...')
+          span &nbsp;
+          button.btn.btn-danger( class="btn btn-primary ml-4" ) Delete
+
+        table.table.table-bordered
+          thead 
+            tr.thead-dark
+              th ID
+              th Name
+              th Total Price
+              th Action
+          tbody
+            each order in orders
+              tr
+                td= order.id
+                td= order.name
+                td= order.totalprice
+                td
+                  a.btn.btn-info(href='/admin/orders/'+order.id) View
+  // Footer ==========================================================
+  include ../layout/footer.pug

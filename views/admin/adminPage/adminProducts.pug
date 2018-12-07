@@ -1,0 +1,47 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='index.html') Admin
+            span.divider /
+          li.active Products
+        h1
+          span.mt-100.mr-10 Products
+          span &nbsp;
+          a.btn.btn-primary(href="/admin/products/create") New Product
+        hr.soft
+        
+        form(action="/admin/products/search", method="GET" class="form-inline")
+          input(type="text" name = "q" class="form-control")
+          span &nbsp;
+          button( class="btn btn-primary ml-4" ) Search
+          
+        form#idDelete(action="/admin/products/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id product can xoa...')
+          span &nbsp;
+          button.btn.btn-danger( class="btn btn-primary ml-4" ) Delete
+
+        table.table.table-bordered
+          thead 
+            tr.thead-dark
+              th ID
+              th Name
+              th Image
+              th Price
+              th Action
+          tbody
+            each product in products
+              tr
+                td= product.id
+                td= product.name
+                td
+                  img( src = product.img , width = "64", height="64")
+                td= product.price
+                td
+                  a.btn.btn-info(href='/admin/products/'+product.id) Edit
+  // Footer ==========================================================
+  include ../layout/footer.pug

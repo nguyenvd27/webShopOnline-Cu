@@ -1,0 +1,21 @@
+#sidebar.span3
+  .well.well-small
+    a#myCart(href='product_summary.html')
+      img(src='themes/images/ico-cart.png', alt='cart')
+      | 3 Orders  
+  ul#sideManu.nav.nav-tabs.nav-stacked
+    li.subMenu.open
+      a  Home Page
+      ul
+        li
+          a.active(href='/admin/products')
+            i.icon-chevron-right
+            | Products
+        li
+          a(href='/admin/users')
+            i.icon-chevron-right
+            | Users
+        li
+          a(href='/admin/orders')
+            i.icon-chevron-right
+            | Orders
