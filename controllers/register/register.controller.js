@@ -27,7 +27,7 @@ module.exports.submit = (req, res) => {
         }
     }
 
-    db.select('price', 'quantity').from('cartsessions')
+    db('cartsessions')
     .where('sessionid', '=', sessionId)
     .then(data => {
         console.log(data);
@@ -37,24 +37,47 @@ module.exports.submit = (req, res) => {
         console.log(totalprice);
 
         db('orders').insert({
-            sessionid: sessionId,
             name: name,
             phone: phone,
             email: email,
             address: address,
             city: city,
+            dateorder: db.fn.now(),
             addinfor: addinfor,
             totalprice: totalprice
-        }).then(data2 => {
-            // db('sessions')
-            // .where('sessionid', '=', sessionId)
-            // .del()
-            // .then(data => {
-            //     console.log('Delete '+sessionId+' from sessions');
-            // })
-            // res.clearCookie('sessionId');
+        }).returning('*')
+        .then(data2 => {
+            // console.log('orders: ',data2);
+            // console.log('data1: ',data);
+            // for(var k=0; k< data.length; k++){
+            //     db('orderdetail').insert({
+            //         orderid: data2[0].id,
+            //         productid: data[k].productid,
+            //         name: data[k].name,
+            //         price: data[k].price,
+            //         img: data[k].img,
+            //         description: data[k].description,
+            //         quantity: data[k].quantity
+            //     }).then(data3 => {
+            //         res.redirect('/');
+            //     })
+            // }
+
+            for(var k=0; k< data.length; k++){
+                db('orderdetail').insert({
+                    orderid: data2[0].id,
+                    productid: data[k].productid,
+                    name: data[k].name,
+                    price: data[k].price,
+                    img: data[k].img,
+                    description: data[k].description,
+                    quantity: data[k].quantity
+                }).returning('*')
+                .then(data3 => {
+                    console.log(data3);
+                })
+            }
             res.redirect('/');
-            //console.log(data2);
         })
     })
 }

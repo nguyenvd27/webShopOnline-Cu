@@ -1,17 +1,28 @@
 const db = require('../model/model');
 
 module.exports.getProducts = (req, res) => {
-    db.select().from('products')
+    var page = parseInt(req.query.page) || 1;
+    var perPage =9;
+    var total;
+    db('products')
+    .limit(perPage).offset((page-1)*perPage)
     .then(data => {
-        db.select().from('carousels')
-        .then(carousels => {
-            db.select().from('featuredproducts')
-            .then(featuredproducts => {
-                res.render('page/index',{
-                    products: data,
-                    carousels: carousels,
-                    featuredproducts: featuredproducts,
-                    email: req.signedCookies.email
+        db('carousels').then(carousels => {
+            db('products').orderBy('id', 'desc')
+            .limit(8).offset(0)
+            .then(newproducts => {
+                db('products').count('id')
+                .then( data2 => {
+                    total=data2[0].count;
+                    res.render('page/index',{
+                        page: page,
+                        perPage: perPage,
+                        total: total,
+                        products: data,
+                        carousels: carousels,
+                        newproducts: newproducts,
+                        email: req.signedCookies.email
+                    });
                 })
             })
         })
@@ -21,4 +32,9 @@ module.exports.getProducts = (req, res) => {
 module.exports.logout = (req, res) => {
     res.clearCookie('email');
     res.redirect('/');
+}
+
+module.exports.adminLogout = (req, res) => {
+    res.clearCookie('adminId');
+    res.redirect('/admin/signin');
 }

@@ -113,19 +113,15 @@ block content
                     option(value='62') Vĩnh Phúc
                     option(value='63') Yên Bái
               .control-group
-                label.control-label(for='aditionalInfo') Additional information
+                label.control-label(for='aditionalInfo' ) Additional information
                 .controls
-                  textarea#aditionalInfo(name='aditionalInfo', cols='26', rows='3') Additional information
+                  textarea#aditionalInfo(name='aditionalInfo', cols='26', rows='3')
               .alert.alert-block.alert-error.fade.in
                 button.close(type='button', data-dismiss='alert') &times;
                 strong Fill in enough information
               p
                 sup *
                 | Required field
-              //- .control-group
-              //-   .controls
-              //-     a(href='/' style='padding-right:0')
-              //-       span.btn.btn-large.btn-success Register
               .control-group
                 .controls
                   input(type='hidden', name='email_create', value='1')

@@ -48,12 +48,12 @@ block content
                     hr.soft
                     h5 Infor 
                     p=product.description
-                    a.btn.btn-small.pull-right(href='/product-details/' + product.id) View Details
+                    a.btn.btn-small.btn-warning.pull-right(href='/product-details/' + product.id) VIEW DETAILS
                     br.clr
                   .span3.alignR
                     form.form-horizontal.qtyFrm
                       h3  $ #{product.price}
-                      a.btn.btn-large.btn-primary(href='/cart/add/'+product.id)
+                      a.btn.btn-large.btn-success(href='/cart/add/'+product.id)
                         | Add to 
                         i.icon-shopping-cart
                       a.btn.btn-large(href='/product-details/' + product.id)
@@ -68,32 +68,41 @@ block content
                         img(src=product.img, alt='')
                       .caption
                         h5=product.name
-                        p=product.description
+                        p=product.supplier
                         h4(style='text-align:center')
                           a.btn(href='/product-details/' + product.id)
                             i.icon-zoom-in
-                          a.btn(href='/cart/add/'+product.id)
+                          a.btn.btn-success(href='/cart/add/'+product.id)
                             | Add to 
                             i.icon-shopping-cart
-                          a.btn.btn-primary(href='#') $ #{product.price}
+                          a.btn.btn-danger(href='#') $ #{product.price}
               hr.soft
-          a.btn.btn-large.pull-right(href='compair.html') Compair Product
+          - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+          - var startPage = lowerLimit-1;
+          // (page-1) la trang dau tien xuat hien cua 3 trang (vd 1,2,3)
           .pagination
             ul
-              li
-                a(href='#') &lsaquo;
-              li
-                a(href='#') 1
-              li
-                a(href='#') 2
-              li
-                a(href='#') 3
-              li
-                a(href='#') 4
-              li
-                a(href='#') ...
-              li
-                a(href='#') &rsaquo;
+              if(page > 1)
+                li
+                  a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1)) Previous
+              else
+                li
+                  a(href='#') Previous
+              each i in [1, 2, 3]
+                if( total > startPage*perPage)
+                  - startPage = startPage + 1;
+                    if(page !== startPage)
+                      li
+                        a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'blue'}) #{startPage}
+                    else
+                      li
+                        a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'white', 'background-color':'#0099ff' }) #{startPage}
+              if(page < total/perPage)
+                li
+                  a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1)) Next
+              else
+                li
+                  a(href='#') Next
           br.clr
   // MainBody End =============================
   // Footer ==================================================================

@@ -6,20 +6,18 @@ block content
       .span9
         ul.breadcrumb
           li
-            a(href='admin/products') Admin
+            a(href='/admin/orders') Admin
             span.divider /
-          li.active Orders
+          li.active orders
         h1
           span.mt-100.mr-10 Orders
         hr.soft
-        
-        form(action="/admin/products/search", method="GET" class="form-inline")
-          input(type="text" name = "q" class="form-control")
-          span &nbsp;
-          button( class="btn btn-primary ml-4" ) Search
+        form.form-inline(method='get', action='/admin/orders/search')
+            input#search.form-control(type='text',placeholder='Search orders by name...', name='q', value = q ? q : '')
+            button.btn.btn-primary.mb-2(type='submit') SEARCH
           
-        form#idDelete(action="/admin/products/delete", method="POST" class="form-inline")
-          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id product can xoa...')
+        form#idDelete(action="/admin/orders/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id can xoa...')
           span &nbsp;
           button.btn.btn-danger( class="btn btn-primary ml-4" ) Delete
 
@@ -28,15 +26,48 @@ block content
             tr.thead-dark
               th ID
               th Name
+              th Time Order
               th Total Price
+              th Status
               th Action
           tbody
             each order in orders
               tr
                 td= order.id
                 td= order.name
-                td= order.totalprice
+                th= order.dateorder
+                td(style ={ 'font-size': '18px'})= order.totalprice
+                if order.status===0
+                  td Chưa Xác Nhận
+                else if order.status===1 
+                  td Đã Xác Nhận
                 td
-                  a.btn.btn-info(href='/admin/orders/'+order.id) View
+                  a.btn.btn-info(href='/admin/orders/'+order.id name='view' value=order.id) View
+        //Pagination (phan trang)
+        - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+        - var startPage = lowerLimit-1;
+        .pagination
+            ul
+              if(page > 1)
+                li
+                  a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1)) Previous
+              else
+                li
+                  a(href='#') Previous
+              each i in [1, 2, 3]
+                if( total > startPage*perPage)
+                  - startPage = startPage + 1;
+                    if(page !== startPage)
+                      li
+                        a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'blue'}) #{startPage}
+                    else
+                      li
+                        a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'white', 'background-color':'#0099ff' }) #{startPage}
+              if(page < total/perPage)
+                li
+                  a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1)) Next
+              else
+                li
+                  a(href='#') Next
   // Footer ==========================================================
   include ../layout/footer.pug

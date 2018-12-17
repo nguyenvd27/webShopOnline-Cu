@@ -6,20 +6,17 @@ block content
       .span9
         ul.breadcrumb
           li
-            a(href='index.html') Admin
+            a(href='/admin/orders') Admin
             span.divider /
-          li.active Products
+          li.active products
         h1
           span.mt-100.mr-10 Products
           span &nbsp;
-          a.btn.btn-primary(href="/admin/products/create") New Product
+          a.btn.btn-success(href="/admin/products/create") New Product
         hr.soft
-        
-        form(action="/admin/products/search", method="GET" class="form-inline")
-          input(type="text" name = "q" class="form-control")
-          span &nbsp;
-          button( class="btn btn-primary ml-4" ) Search
-          
+        form.form-inline(method='get', action='/admin/products/search')
+            input#search.form-control(type='text',placeholder='Search product...', name='q', value = q ? q : '')
+            button.btn.btn-primary.mb-2(type='submit') SEARCH
         form#idDelete(action="/admin/products/delete", method="POST" class="form-inline")
           input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id product can xoa...')
           span &nbsp;
@@ -32,6 +29,9 @@ block content
               th Name
               th Image
               th Price
+              th Category
+              th Supplier
+              //th Description
               th Action
           tbody
             each product in products
@@ -41,7 +41,39 @@ block content
                 td
                   img( src = product.img , width = "64", height="64")
                 td= product.price
+                if product.category===1
+                  td Áo Nam
+                else if product.category===2 
+                  td Quần Nam
+                td= product.supplier
+                //td= product.description
                 td
-                  a.btn.btn-info(href='/admin/products/'+product.id) Edit
+                  a.btn.btn-warning(href='/admin/products/'+product.id) Edit
+        //Pagination (phan trang)
+        - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+        - var startPage = lowerLimit-1;
+        .pagination
+            ul
+              if(page > 1)
+                li
+                  a(href='/admin/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1)) Previous
+              else
+                li
+                  a(href='#') Previous
+              each i in [1, 2, 3]
+                if( total > startPage*perPage)
+                  - startPage = startPage + 1;
+                    if(page !== startPage)
+                      li
+                        a(href='/admin/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'blue'}) #{startPage}
+                    else
+                      li
+                        a(href='/admin/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'white', 'background-color':'#0099ff' }) #{startPage}
+              if(page < total/perPage)
+                li
+                  a(href='/admin/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1)) Next
+              else
+                li
+                  a(href='#') Next
   // Footer ==========================================================
   include ../layout/footer.pug

@@ -1,77 +1,79 @@
 #sidebar.span3
-  .well.well-small
-    a#myCart(href='product_summary.html')
+  .well.well-small(style ={'text-align':'center', 'background-color':'#FF6633'})
+    a#myCart(href='/cart/checkout')
       img(src='themes/images/ico-cart.png', alt='cart')
-      | 3 Items in your cart  
-      span.badge.badge-warning.pull-right $155.00
-  .well.well-small
-    //img(src='themes/images/ico-cart.png', alt='slogun') 
-    p( style ={ 'font-size': '20px','color':'#800000' })
-      strong Tất cả vì khách hàng
-    p( style ={ 'font-size': '15px','color':'#666' }) Chúng tôi luôn cố gắng để hoàn thiện
+      | #{countItem} Items in your cart  
+      span.badge.badge-warning.pull-right ₫ #{price}
+  .well.well-small(style ={'font-size': '18px', 'color':'#DD0000', 'text-align':'center', 'background-color':'#66FF66'})
+    if(email)
+      a#infor(href='/user/view' )
+        img(src='themes/images/user.svg' width='20px') 
+        span &nbsp;
+        | Account Information
+    else
+      a#infor(href='/signin' )
+        img(src='themes/images/user.svg' width='20px') 
+        span &nbsp;
+        | Account Information
+  .well.well-small(style ={'text-align':'center', 'background-color':'#FFCC00'})
+    p Thanks for visiting
+    p( style ={ 'font-size': '18px','color':'#800000'})
+      strong Chúng tôi luôn cố gắng để hoàn thiện
   ul#sideManu.nav.nav-tabs.nav-stacked
     li.subMenu.open
-      a  Thời Trang Nam
+      a Thời Trang Nam
       ul
         li
-          a.active(href='products.html')
+          a.active(href='/products/category1')
             i.icon-chevron-right
-            | Áo Sơ-Mi
+            | Áo Nam
         li
-          a(href='products.html')
+          a(href='/products/category2')
             i.icon-chevron-right
-            | Áo Phông
-        li
-          a(href='products.html')
-            i.icon-chevron-right
-            | Áo Khoắc
-        li
-          a(href='products.html')
-            i.icon-chevron-right
-            | Quần Jean
+            | Quần Nam
     li.subMenu
-      a  Thời Trang Nữ
+      a  Thời Trang Nữ (Đang Phát Triển)
       ul(style='display:none')
         li
-          a(href='products.html')
+          a(href='/products')
             i.icon-chevron-right
             | Váy &amp; Đầm
         li
-          a(href='products.html')
+          a(href='/products')
             i.icon-chevron-right
             | Áo
         li
-          a(href='products.html')
+          a(href='/products')
             i.icon-chevron-right
             | Quần
     li
-      a(href='products.html') SPORTS (Đang phát triển)
+      a(href='#') SPORTS (Đang phát triển)
     li
-      a(href='products.html') BOOKS (Đang phát triển)
-  br
-  .thumbnail
-    img(src='themes/images/products/panasonic.jpg', alt='Bootshop panasonoc New camera')
-    .caption
-      h5 Panasonic
-      h4(style='text-align:center')
-        a.btn(href='product_details.html')
-          i.icon-zoom-in
-        a.btn(href='#')
-          | Add to 
-          i.icon-shopping-cart
-        a.btn.btn-primary(href='#') $222.00
-  br
-  .thumbnail
-    img(src='themes/images/products/kindle.png', title='Bootshop New Kindel', alt='Bootshop Kindel')
-    .caption
-      h5 Kindle
-      h4(style='text-align:center')
-        a.btn(href='product_details.html')
-          i.icon-zoom-in
-        a.btn(href='#')
-          | Add to 
-          i.icon-shopping-cart
-        a.btn.btn-primary(href='#') $222.00
+      a(href='#') BOOKS (Đang phát triển)
+  //- br
+  //- .thumbnail
+  //-   img(src='themes/images/products/panasonic.jpg', alt='Bootshop panasonoc New camera')
+  //-   .caption
+  //-     h5 Panasonic
+  //-     h4(style='text-align:center')
+  //-       a.btn(href='product_details.html')
+  //-         i.icon-zoom-in
+  //-       a.btn(href='#')
+  //-         | Add to 
+  //-         i.icon-shopping-cart
+  //-       a.btn.btn-primary(href='#') $222.00
+  //- br
+  //- .thumbnail
+  //-   img(src='themes/images/products/kindle.png', title='Bootshop New Kindel', alt='Bootshop Kindel')
+  //-   .caption
+  //-     h5 Kindle
+  //-     h4(style='text-align:center')
+  //-       a.btn(href='product_details.html')
+  //-         i.icon-zoom-in
+  //-       a.btn(href='#')
+  //-         | Add to 
+  //-         i.icon-shopping-cart
+  //-       a.btn.btn-primary(href='#') $222.00
   br
   .thumbnail
     img(src='themes/images/payment_methods.png', title='Bootshop Payment Methods', alt='Payments Methods')

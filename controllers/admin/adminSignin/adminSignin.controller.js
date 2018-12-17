@@ -8,7 +8,7 @@ module.exports.signin = (req, res) => {
 
 module.exports.postSignin = (req, res) => {
     const { email, password } = req.body;
-    db.select('email', 'hash','id').from('login')
+    db.select('email', 'hash','id').from('admin')
         .where('email', '=', email)
         .then(data => {
             if (data.length == 0) {
@@ -23,10 +23,10 @@ module.exports.postSignin = (req, res) => {
                 const isValid = bcrypt.compareSync(password, data[0].hash);
                 console.log(isValid);
                 if (isValid) {
-                    res.cookie('email', email,{
+                    res.cookie('adminId', data[0].id,{
                         signed: true
                     });
-                    res.redirect('/admin/products');
+                    res.redirect('/admin/orders');
                 
                 } else {
                     //res.status(400).json('wrong credentials');
@@ -41,3 +41,15 @@ module.exports.postSignin = (req, res) => {
             }
         })
 };
+
+module.exports.createAdmin = (req, res) => {
+    const { emailCreate, passwordCreate} = req.body;
+    const hash = bcrypt.hashSync(passwordCreate);
+
+    db('admin').insert({
+        email: emailCreate,
+        hash: hash
+    }).then(data => {
+        res.redirect('/admin/signin');
+    })
+}

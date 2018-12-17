@@ -6,9 +6,11 @@ block content
       .span9
         ul.breadcrumb
           li
-            a(href='index.html') Admin
+            a(href='/admin/orders') Admin
             span.divider /
-          li.active products/create
+          a(href='/admin/products') products
+            span.divider /
+          li.active create
         h1
           span.mt-100.mr-10 Create Product
         hr.soft
@@ -22,6 +24,15 @@ block content
           .form-group
             label(for="price") Price
             input#price.form-control(type="number" name="price" value= values ? values.price : '')
+          .form-group
+            label.control-label(for='category') Category
+            select#state(name='category') 
+                option(value='') -
+                option(value='1') Áo Nam
+                option(value='2') Quần Nam
+          .form-group
+            label(for="supplier") Supplier
+            input#supplier.form-control(type="text" name="supplier" value= values ? values.supplier : '')
           .form-group
             label(for="desc") Description
             input#desc.form-control(type="text" name="desc" value= values ? values.desc : '')

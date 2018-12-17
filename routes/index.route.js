@@ -7,4 +7,6 @@ router.get('/',controller.getProducts );
 
 router.get('/logout', controller.logout);
 
+router.get('/admin/logout', controller.adminLogout);
+
 module.exports = router;

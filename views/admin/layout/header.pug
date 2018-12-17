@@ -29,11 +29,11 @@ head
         span.icon-bar
         span.icon-bar
       .navbar-inner
-        a.brand(href='/')
+        a.brand(href='/admin/orders')
           img(src='themes/images/newlogo.png', width='110px', alt='Bootsshop')
-        form.form-inline.navbar-search(method='get', action='/products/search')
-            input#search.form-control(type='text',placeholder='Search product...', name='q', value = q ? q : '')
-            button.btn.btn-primary.mb-2(type='submit') SEARCH
+        //- form.form-inline.navbar-search(method='get', action='/products/search')
+        //-     input#search.form-control(type='text',placeholder='Search product...', name='q', value = q ? q : '')
+        //-     button.btn.btn-primary.mb-2(type='submit') SEARCH
         ul#topMenu.nav.pull-right
           li
             a(href='/admin/products') PRODUCTS
@@ -42,7 +42,7 @@ head
           li
             a(href='/admin/orders') ORDERS[3]
           li
-            a(href='/logout', role='button', data-toggle='modal', style='padding-right:0')
+            a(href='/admin/logout', role='button', data-toggle='modal', style='padding-right:0')
               span.btn.btn-large.btn-success Logout
 // Header End======================================================================
 block content

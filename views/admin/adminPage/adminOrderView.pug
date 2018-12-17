@@ -6,20 +6,68 @@ block content
       .span9
         ul.breadcrumb
           li
-            a(href='admin/products') Admin
+            a(href='/admin/orders') Admin
             span.divider /
-          li.active Orders
+          li
+            a(href='/admin/orders') orders
+            span.divider /
+          li.active view
         h1
           span.mt-100.mr-10 Orders
         hr.soft
-        
-        form(action="/admin/products/search", method="GET" class="form-inline")
-          input(type="text" name = "q" class="form-control")
-          span &nbsp;
-          button( class="btn btn-primary ml-4" ) Search
+        if order.status===0
+          a.btn.btn-info(href='/admin/orders/'+order.id+'/xacnhan') Xác Nhận
+        else if order.status===1 
+          a.btn.btn-info(href='#') Đã Xác Nhận
+        h3 Customer Information
+        table.table.table-bordered
+          tr
+            td
+              p(style ={ 'font-size': '20px'}) ID: <strong>#{order.id}</strong>
+              p(style ={ 'font-size': '20px'}) Email:  <strong>#{order.email}</strong>
+              p(style ={ 'font-size': '20px'}) Name:  <strong>#{order.name}</strong>
+              p(style ={ 'font-size': '20px'}) Phone:  <strong>#{order.phone}</strong>
+              p(style ={ 'font-size': '20px'}) Address:  <strong>#{order.address}</strong>
+              p(style ={ 'font-size': '20px'}) City:  <strong>#{order.city}</strong>
+              p(style ={ 'font-size': '20px'}) Date:  <strong>#{order.dateorder}</strong>
+              p(style ={ 'font-size': '20px'}) AddInformation:  <strong>#{order.addinfor}</strong>
+              p(style ={ 'font-size': '20px'}) Total Price:  <strong>#{order.totalprice}</strong>
+        h3 Products
+        table.table.table-bordered
+          thead
+            tr
+              th ID
+              th Name
+              th Product
+              th Description
+              th Quantity
+              th Price
+              th Total
+          tbody#select-quantity
+            each product in products
+              tr
+                td
+                  |  #{product.id}
+                td
+                  |  #{product.name}
+                td
+                  img(width='60', src=product.img, alt='')
+                td 
+                  |  #{product.description}
+                td
+                  |  #{product.quantity}
+                td $ #{product.price}
+                td $ #{product.price * product.quantity}
+            tr
+              td(colspan='6', style='text-align:right')
+                strong TOTAL PRICE =
+              -
+                var totalPrice = 0
+                for(var i=0;i< products.length;i++){
+                totalPrice = totalPrice + products[i].price*products[i].quantity
+                }
+              td.label.label-important(style='display:block')
+                strong $ #{totalPrice} 
 
-        h3 ID #{order.id}
-        h3 Name #{order.name}
-        h3 Total Price #{order.totalprice}
   // Footer ==========================================================
   include ../layout/footer.pug

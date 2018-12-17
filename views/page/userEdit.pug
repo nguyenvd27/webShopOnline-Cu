@@ -1,0 +1,30 @@
+extends ../layout/header.pug
+block content
+  #mainBody
+    .container
+      .row
+        // Sidebar ==================================================
+        include ../layout/sidebar.pug
+        .span9
+          ul.breadcrumb
+            li
+              a(href='/') Home
+              span.divider /
+            li.active user
+          h1
+          span.mt-100.mr-10 Edit User #{user.name}
+          hr.soft
+          form#form(action="/user/"+user.id, method="POST")
+            .form-group
+              label#iduser(name='id', value= user.id) ID: #{user.id}
+            .form-group
+              label#iduser(name='email', value= user.email) Email: #{user.email}
+            .form-group
+              label(for="name") Name
+              input#name.form-control(type="text" name="name" value= user.name ? user.name : '')
+            .form-group
+              label(for="phone") Phone
+              input#phone.form-control(type="number" name="phone" value= user.phone ? user.phone : '')
+            button(class="btn btn-primary ml-4") Update  
+  // Footer ==========================================================
+  include ../layout/footer.pug

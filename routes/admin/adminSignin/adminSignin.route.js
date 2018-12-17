@@ -7,5 +7,6 @@ router.use(express.static('public'));
 
 router.get('/',controller.signin );
 router.post('/',controller.postSignin );
+router.post('/create', controller.createAdmin);
 
 module.exports = router;

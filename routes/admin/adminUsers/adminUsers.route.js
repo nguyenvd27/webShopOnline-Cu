@@ -8,6 +8,6 @@ router.use(express.static('public'));
 
 router.get('/',controller.users );
 router.post('/delete', controller.delete);
-//router.get('/delete', controller.getDelete);
+router.get('/search', controller.search);
 
 module.exports = router;

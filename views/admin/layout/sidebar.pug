@@ -1,12 +1,16 @@
 #sidebar.span3
   .well.well-small
-    a#myCart(href='product_summary.html')
+    a#myCart(href='/admin/orders')
       img(src='themes/images/ico-cart.png', alt='cart')
       | 3 Orders  
   ul#sideManu.nav.nav-tabs.nav-stacked
     li.subMenu.open
       a  Home Page
       ul
+        li
+          a(href='/admin/orders')
+            i.icon-chevron-right
+            | Orders
         li
           a.active(href='/admin/products')
             i.icon-chevron-right
@@ -16,6 +20,6 @@
             i.icon-chevron-right
             | Users
         li
-          a(href='/admin/orders')
+          a(href='/admin/carousels')
             i.icon-chevron-right
-            | Orders
+            | Carousels

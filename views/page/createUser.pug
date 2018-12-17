@@ -1,0 +1,40 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='index.html') Home
+            span.divider /
+          li.active create
+        h3  Create User
+        hr.soft
+        .row
+          .span4
+            .well
+              h5 CREATE YOUR ACCOUNT
+              if error
+                .alert.alert-danger= error
+              form(action='/signin/create', method="POST")
+                .control-group
+                  label.control-label(for='name') Name
+                  .controls
+                    input#name.span3(type='text', name='name', placeholder='Name' value= values ? values.name : '')
+                .control-group
+                  label.control-label(for='inputEmail0') Email
+                  .controls
+                    input#inputEmail0.span3(type='text', name='email', placeholder='Email')
+                .control-group
+                  label.control-label(for="password") Password
+                  .controls
+                    input#password.span3(type="password", name='password', placeholder='Password' value= values ? values.password : '')
+                .control-group
+                  label.control-label(for="phone") Phone
+                  .controls
+                    input#phone.span3(type="text", name='phone', placeholder='phone' value= values ? values.phone : '')
+                .controls
+                  button.btn.block.btn-success(type='submit') Create Your Account
+  // Footer ==========================================================
+  include ../layout/footer.pug

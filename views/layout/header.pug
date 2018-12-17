@@ -26,16 +26,18 @@ head
       if(email)
         .span6(style ={ 'font-size': '20px','color':'#993300' })
           | Welcome!
-          strong  #{email}
+          a(href='/user/view' style ={ 'font-size': '20px','color':'#993300' })
+            strong  #{email}
       else
         .span6
           | Hi! 
       .span6
         .pull-right
           a(href='/cart/checkout')
-            span.btn.btn-mini.btn-primary(style ={ 'font-size': '16px' })
+            span.btn.btn-mini.btn-danger(style ={ 'font-size': '18px' })
               i.icon-shopping-cart.icon-white
-              strong Itemes in your cart
+              span &nbsp;
+              strong #{countItem} Itemes in your cart
     // Navbar ==================================================
     #logoArea.navbar
       a#smallScreen.btn.btn-navbar(data-target='#topMenu', data-toggle='collapse')

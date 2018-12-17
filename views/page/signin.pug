@@ -14,30 +14,6 @@ block content
         .row
           .span4
             .well
-              h5 CREATE YOUR ACCOUNT
-              br
-              form(action='/signin/create', method="POST")
-                .control-group
-                  label.control-label(for='name') Name
-                  .controls
-                    input#name.span3(type='text', name='name', placeholder='Name')
-                .control-group
-                  label.control-label(for='inputEmail0') E-mail address
-                  .controls
-                    input#inputEmail0.span3(type='text', name='email', placeholder='Email')
-                .control-group
-                  label.control-label(for="password") Password
-                  .controls
-                    input#password.span3(type="password", name='password', placeholder='Password')
-                .control-group
-                  label.control-label(for="entries") Entries
-                  .controls
-                    input#entries.span3(type="number", name='entries', placeholder='Entries')
-                .controls
-                  button.btn.block(type='submit') Create Your Account
-          .span1  &nbsp;
-          .span4
-            .well
               h5 ALREADY REGISTERED ?
               if errors
                 each error in errors
@@ -53,7 +29,12 @@ block content
                     input#password.span3(type="password" name="password" value= values ? values.password : '')
                 .control-group
                   .controls
-                    button.btn(type='submit') Sign in
-                    a(href='forgetpass.html') Forget password?
+                    button.btn.btn-success(type='submit') Sign in
+                    //a(href='forgetpass.html') Forget password?
+          .span1  &nbsp;
+          .span4
+            .well
+              h5 CREATE YOUR ACCOUNT
+              a.btn.btn-success(href='/signin/create') Create
   // Footer ==========================================================
   include ../layout/footer.pug

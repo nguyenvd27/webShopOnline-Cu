@@ -1,0 +1,23 @@
+extends ../layout/header.pug
+block content
+  #mainBody
+    .container
+      .row
+        // Sidebar ==================================================
+        include ../layout/sidebar.pug
+        .span9
+          ul.breadcrumb
+            li
+              a(href='/') Home
+              span.divider /
+            li.active user
+          p(style ={ 'font-size': '24px'}) ID:  <strong>#{user.id}</strong>
+          p(style ={ 'font-size': '20px'}) Email:  <strong>#{user.email}</strong>
+          p(style ={ 'font-size': '20px'}) Name:  <strong>#{user.name}</strong>
+          p(style ={ 'font-size': '20px'}) Phone:  <strong>#{user.phone}</strong>
+          p(style ={ 'font-size': '20px'}) Time Joined:  <strong>#{user.joined}</strong>
+          a.btn.btn-success(href='/user/'+user.id) Edit Infor
+          span &nbsp;
+          a.btn.btn-success(href='/user/changepassword') Change Password
+  // Footer ==========================================================
+  include ../layout/footer.pug

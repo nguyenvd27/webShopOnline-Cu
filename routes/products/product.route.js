@@ -17,4 +17,8 @@ router.get('/priceLow', controller.priceLow);
 
 router.get('/priceHigh', controller.priceHigh);
 
+router.get('/category1', controller.getCategory1);// 1 là áo
+
+router.get('/category2', controller.getCategory2);// 2 là quần
+
 module.exports = router;

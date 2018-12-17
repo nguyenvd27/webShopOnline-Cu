@@ -1,0 +1,65 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      include ../layout/sidebar.pug
+      .span9
+        ul.breadcrumb
+          li
+            a(href='/admin/orders') Admin
+            span.divider /
+          li.active carousels
+        h1
+          span.mt-100.mr-10 carousels
+          span &nbsp;
+          a.btn.btn-success(href="/admin/carousels/create") New Carousel
+        hr.soft
+        form.form-inline(method='get', action='/admin/carousels/search')
+            input#search.form-control(type='text',placeholder='Search carousels...', name='q', value = q ? q : '')
+            button.btn.btn-primary.mb-2(type='submit') SEARCH
+        form#idDelete(action="/admin/carousels/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id carousel can xoa...')
+          span &nbsp;
+          button.btn.btn-danger( class="btn btn-primary ml-4" ) Delete
+
+        table.table.table-bordered
+          thead 
+            tr.thead-dark
+              th ID
+              th Name
+              th Image
+          tbody
+            each carousel in carousels
+              tr
+                td= carousel.id
+                td= carousel.name
+                td
+                  img( src = carousel.img , width = "500px", height="500px")
+        //Pagination (phan trang)
+        - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+        - var startPage = lowerLimit-1;
+        .pagination
+            ul
+              if(page > 1)
+                li
+                  a(href='/admin/carousels'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1)) Previous
+              else
+                li
+                  a(href='#') Previous
+              each i in [1, 2, 3]
+                if( total > startPage*perPage)
+                  - startPage = startPage + 1;
+                    if(page !== startPage)
+                      li
+                        a(href='/admin/carousels'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'blue'}) #{startPage}
+                    else
+                      li
+                        a(href='/admin/carousels'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'white', 'background-color':'#0099ff' }) #{startPage}
+              if(page < total/perPage)
+                li
+                  a(href='/admin/carousels'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1)) Next
+              else
+                li
+                  a(href='#') Next
+  // Footer ==========================================================
+  include ../layout/footer.pug

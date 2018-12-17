@@ -6,19 +6,15 @@ block content
       .span9
         ul.breadcrumb
           li
-            a(href='admin/products') Admin
+            a(href='/admin/orders') Admin
             span.divider /
-          li.active Users
+          li.active users
         h1
           span.mt-100.mr-10 Users
-          span &nbsp;
-          a.btn.btn-primary(href="/admin/products/create") New User
         hr.soft
-        
-        form(action="/admin/products/search", method="GET" class="form-inline")
-          input(type="text" name = "q" class="form-control")
-          span &nbsp;
-          button( class="btn btn-primary ml-4" ) Search
+        form.form-inline(method='get', action='/admin/users/search')
+            input#search.form-control(type='text',placeholder='Search users by email...', name='q', value = q ? q : '')
+            button.btn.btn-primary.mb-2(type='submit') SEARCH
         form#idDelete(action="/admin/users/delete", method="POST" class="form-inline")
           input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao email can xoa...')
           span &nbsp;
@@ -30,29 +26,41 @@ block content
               th ID
               th Email
               th Name
+              th Phone 
+              th Time Join
           tbody#idDelete
             each user in users
               tr
                 td= user.id
                 td= user.email
                 td= user.name
+                th= user.phone 
+                th= user.joined
+        //Pagination (phan trang)
+        - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+        - var startPage = lowerLimit-1;
+        .pagination
+            ul
+              if(page > 1)
+                li
+                  a(href='/admin/users'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1)) Previous
+              else
+                li
+                  a(href='#') Previous
+              each i in [1, 2, 3]
+                if( total > startPage*perPage)
+                  - startPage = startPage + 1;
+                    if(page !== startPage)
+                      li
+                        a(href='/admin/users'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'blue'}) #{startPage}
+                    else
+                      li
+                        a(href='/admin/users'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage style ={ 'color':'white', 'background-color':'#0099ff' }) #{startPage}
+              if(page < total/perPage)
+                li
+                  a(href='/admin/users'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1)) Next
+              else
+                li
+                  a(href='#') Next  
   // Footer ==========================================================
   include ../layout/footer.pug
-  //- block js
-  //-   script.
-  //-     var idDelete = document.getElementById('idDelete'); 
-  //-     idDelete.addEventListener('click', onDelete);
-  //-     function onDelete(event) {
-  //-         var idDelete = event.target.id;// Lay id bi xoa
-  //-       fetch('http://localhost:3000/admin/users/delete', {
-  //-         method: 'post',
-  //-         headers:{
-  //-           'Content-Type': 'application/json'
-  //-         },
-  //-         body: JSON.stringify({
-  //-           idDelete: idDelete
-  //-         })
-  //-       })
-  //-       .then(response => console.log('Success'))
-  //-       .catch(error => console.error('Error', error));
-  //-     }

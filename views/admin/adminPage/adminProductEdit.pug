@@ -22,6 +22,18 @@ block content
             label(for="price") Price
             input#price.form-control(type="number" name="price" value= product.price ? product.price : '')
           .form-group
+            label.control-label(for='category') Category
+            select#state(name='category') 
+              if product.category===1
+                option(value='1') Áo Nam
+                option(value='2') Quần Nam
+              else if product.category===2
+                option(value='2') Quần Nam
+                option(value='1') Áo Nam
+          .form-group
+            label(for="supplier") Supplier
+            input#supplier.form-control(type="text" name="supplier" value= product.supplier ? product.supplier : '')
+          .form-group
             label(for="desc") Description
             input#desc.form-control(type="text" name='desc' value= product.description ? product.description : '')
           .form-group

@@ -12,6 +12,8 @@ router.use(express.static('public'));
 
 router.get('/',controller.products );
 
+router.get('/search',controller.search);
+
 router.get('/create', controller.create);
 router.post('/create', upload.single('image'), controller.postCreate);
 
