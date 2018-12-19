@@ -2,7 +2,7 @@ const db = require('../model/model');
 
 module.exports.getProducts = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =9;
+    var perPage =6;
     var total;
     db('products')
     .limit(perPage).offset((page-1)*perPage)

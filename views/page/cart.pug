@@ -26,7 +26,7 @@ block content
             thead
               tr
                 th Product
-                th Description
+                th Name
                 th Quantity/Update
                 th Price
                 th Total
@@ -37,7 +37,6 @@ block content
                     img(width='60', src=product.img, alt='')
                   td
                     p.text-center #{product.name} 
-                    |  #{product.description}
                   td
                     .input-append
                       input.span1(style='max-width:34px', value=product.quantity, id= product.productid, size='16', type='text')
@@ -48,8 +47,8 @@ block content
                         button.btn.btn-danger.delete-button(type='button', id= product.productid)
                           i.delete-button.close-button.icon-remove.icon-white(id= product.productid)
                           
-                  td $ #{product.price}
-                  td $ #{product.price * product.quantity}
+                  td K₫ #{product.price}
+                  td K₫ #{product.price * product.quantity}
               tr
                 td(colspan='4', style='text-align:right')
                   strong TOTAL PRICE =
@@ -59,7 +58,7 @@ block content
                   totalPrice = totalPrice + products[i].price*products[i].quantity
                   }
                 td.label.label-important(style='display:block')
-                  strong $ #{totalPrice} 
+                  strong K₫ #{totalPrice} 
           a.btn.btn-large(href='/products')
             i.icon-arrow-left
             |  Continue Shopping

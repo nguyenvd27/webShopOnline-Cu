@@ -2,7 +2,7 @@
   .well.well-small
     a#myCart(href='/admin/orders')
       img(src='themes/images/ico-cart.png', alt='cart')
-      | 3 Orders  
+      | #{numberOfOrders} Orders  
   ul#sideManu.nav.nav-tabs.nav-stacked
     li.subMenu.open
       a  Home Page
@@ -10,7 +10,7 @@
         li
           a(href='/admin/orders')
             i.icon-chevron-right
-            | Orders
+            | Orders[#{numberOfOrders}]
         li
           a.active(href='/admin/products')
             i.icon-chevron-right

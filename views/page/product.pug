@@ -46,13 +46,13 @@ block content
                   .span4
                     h3=product.name
                     hr.soft
-                    h5 Infor 
+                    h5 Description 
                     p=product.description
                     a.btn.btn-small.btn-warning.pull-right(href='/product-details/' + product.id) VIEW DETAILS
                     br.clr
                   .span3.alignR
                     form.form-horizontal.qtyFrm
-                      h3  $ #{product.price}
+                      h3  K₫ #{product.price}
                       a.btn.btn-large.btn-success(href='/cart/add/'+product.id)
                         | Add to 
                         i.icon-shopping-cart
@@ -75,7 +75,7 @@ block content
                           a.btn.btn-success(href='/cart/add/'+product.id)
                             | Add to 
                             i.icon-shopping-cart
-                          a.btn.btn-danger(href='#') $ #{product.price}
+                          a.btn.btn-danger(href='#') K₫ #{product.price}
               hr.soft
           - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
           - var startPage = lowerLimit-1;

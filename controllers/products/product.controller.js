@@ -2,7 +2,7 @@ const db = require('../../model/model');
 
 module.exports.product = (req, res ) => {
     var page = parseInt(req.query.page) || 1; //n: trang hien tai
-    var perPage =2; //x: so luong products cua 1 trang
+    var perPage =6; //x: so luong products cua 1 trang
     var total;//Tong so products
     // cong thuc start= (n-1)*x, end = n*x
     // var start = ( page -1)*perPage;
@@ -27,7 +27,7 @@ module.exports.product = (req, res ) => {
 module.exports.search = (req, res ) => {
     var q = req.query.q;
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/search?q=' + q + '\&';
     db('products')
@@ -53,7 +53,7 @@ module.exports.search = (req, res ) => {
 
 module.exports.sortByAZ = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/sortAZ?';
     db('products').orderBy('name', 'asc')
@@ -76,7 +76,7 @@ module.exports.sortByAZ = (req, res) => {
 
 module.exports.sortByZA = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/sortZA?';
     db('products').orderBy('name', 'desc')
@@ -99,7 +99,7 @@ module.exports.sortByZA = (req, res) => {
 
 module.exports.priceLow = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/priceLow?';
     db('products').orderBy('price', 'asc')
@@ -122,7 +122,7 @@ module.exports.priceLow = (req, res) => {
 
 module.exports.priceHigh = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/priceHigh?';
     db('products').orderBy('price', 'desc')
@@ -145,7 +145,7 @@ module.exports.priceHigh = (req, res) => {
 
 module.exports.getCategory1 = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/category1?';
     db('products').where('category','=',1)
@@ -169,7 +169,7 @@ module.exports.getCategory1 = (req, res) => {
 
 module.exports.getCategory2 = (req, res) => {
     var page = parseInt(req.query.page) || 1;
-    var perPage =2;
+    var perPage =6;
     var total;
     var baseUrl = '/category2?';
     db('products').where('category','=',2)

@@ -56,8 +56,8 @@ block content
                   |  #{product.description}
                 td
                   |  #{product.quantity}
-                td $ #{product.price}
-                td $ #{product.price * product.quantity}
+                td K₫ #{product.price}
+                td K₫ #{product.price * product.quantity}
             tr
               td(colspan='6', style='text-align:right')
                 strong TOTAL PRICE =
@@ -67,7 +67,7 @@ block content
                 totalPrice = totalPrice + products[i].price*products[i].quantity
                 }
               td.label.label-important(style='display:block')
-                strong $ #{totalPrice} 
+                strong K₫ #{totalPrice} 
 
   // Footer ==========================================================
   include ../layout/footer.pug

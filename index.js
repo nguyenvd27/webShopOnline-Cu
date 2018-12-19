@@ -17,8 +17,8 @@ const adminProduct = require('./routes/admin/adminProducts/adminProducts.route')
 const adminUser = require('./routes/admin/adminUsers/adminUsers.route');
 const adminOrder = require('./routes/admin/adminOrders/adminOrders.route');
 const adminCarousel = require('./routes/admin/adminCarousels/adminCarousels.route');
-
-const sessionMiddleware = require('./middlewares/session.middleware');
+// Middleware
+const middleware = require('./middlewares/session.middleware');
 const middle = require('./middlewares/auth.middleware');
 
 const app = express();
@@ -32,7 +32,17 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser('chuoibatky'));
-app.use(sessionMiddleware);
+app.use(middleware.session);
+app.use(middleware.cartItems);
+
+// app.use('/signin', middleware.cartItems, signinRoute);
+// app.use('/', middleware.cartItems, getProducts);
+// app.use('/product-details', middleware.cartItems, productDetails);
+// app.use('/cart', middleware.cartItems, cart)
+// app.use('/register', middleware.cartItems, register);
+// app.use('/products', middleware.cartItems, products);
+// app.use('/contact', middleware.cartItems, contact);
+// app.use('/user', middleware.cartItems, user);
 
 app.use('/signin', signinRoute);
 app.use('/', getProducts);
@@ -44,9 +54,9 @@ app.use('/contact', contact);
 app.use('/user', user);
 
 app.use('/admin/signin', adminSignin);
-app.use('/admin/products',middle.adminAuth, adminProduct);
-app.use('/admin/users', middle.adminAuth,adminUser);
-app.use('/admin/orders', middle.adminAuth, adminOrder);
-app.use('/admin/carousels', middle.adminAuth, adminCarousel);
+app.use('/admin/products',middle.adminAuth, middleware.numberOfOrders, adminProduct);
+app.use('/admin/users', middle.adminAuth, middleware.numberOfOrders,adminUser);
+app.use('/admin/orders', middle.adminAuth, middleware.numberOfOrders, adminOrder);
+app.use('/admin/carousels', middle.adminAuth, middleware.numberOfOrders, adminCarousel);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

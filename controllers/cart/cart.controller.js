@@ -10,14 +10,15 @@ module.exports.add = (req, res, next) => {
         return;
     }
 
-    db.select('id', 'name','price', 'img', 'description').from('products')
-    .where('id', '=', productId)
+    db('products').where('id', '=', productId)
     .then(data => {
-        console.log(data)
-        db.select().from('cartsessions')
-        .where('productid', '=', productId)
+        //console.log(data)
+        db('cartsessions').where({
+            productid: productId,
+            sessionid:  sessionId
+          })
         .then(data2 => {
-            console.log(data2);
+            //console.log(data2);
             if(data2.length === 0){
                 db('cartsessions').insert({
                     sessionid: sessionId,

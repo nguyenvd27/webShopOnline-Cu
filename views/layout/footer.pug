@@ -3,24 +3,26 @@
     .row
       .span3
         h5 ACCOUNT
-        a(href='/signin') YOUR ACCOUNT
-        a(href='/signin') PERSONAL INFORMATION
-        a(href='/signin') ADDRESSES
+        if email
+          a(href='/user/view') YOUR ACCOUNT
+          a(href='/user/view') PERSONAL INFORMATION
+          a(href='/user/view') ADDRESSES
+        else 
+          a(href='/signin') YOUR ACCOUNT
+          a(href='/signin') PERSONAL INFORMATION
+          a(href='/signin') ADDRESSES
       .span3
         h5 INFORMATION
         a(href='/contact') CONTACT
-        a(href='/register') REGISTRATION
       .span3
         h5 OUR OFFERS
         a(href='/products') NEW PRODUCTS
-        a(href='#') MANUFACTURERS
         a(href='#') SUPPLIERS
+        a(href='/admin/signin') ADMIN
       #socialMedia.span3.pull-right
         h5 SOCIAL MEDIA 
         a(href='https://www.facebook.com/profile.php?id=100010467486603')
           img(width='60', height='60', src='themes/images/facebook.png', title='facebook', alt='facebook')
-        a(href='#')
-          img(width='60', height='60', src='themes/images/twitter.png', title='twitter', alt='twitter')
         a(href='https://www.youtube.com/channel/UCGCHDrvyhrmyz6ah_TO6GVA?view_as=subscriber')
           img(width='60', height='60', src='themes/images/youtube.png', title='youtube', alt='youtube')
     p.pull-right &copy; VDNshop
